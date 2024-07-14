@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Product Detail{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        /* Additional styles for the product detail page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #343a40;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #343a40;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .product-description {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% block content %}
+            <h2>{{ brand.name }}</h2>
+            <p>Origin: {{ brand.origin }}</p>
+            <!-- Additional details about the brand -->
+            <h3>Products</h3>
+            <ul>
+                {% for product in brand.product_set.all %}
+                    <li><a href="{% url 'product_detail' product.id %}">{{ product.name }} - {{ product.expire_date }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endblock %}
+    </div>
+</body>
+</html>
